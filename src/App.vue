@@ -30,16 +30,10 @@
 </template>
 
 <script>
-import LandingPage from './views/LandingPage.vue';
-import UserRegistrationPage from './views/UserRegistrationPage.vue';
-import EventPage from './views/EventPage.vue';
 
 export default {
   name: 'App',
   components: {
-    LandingPage,
-    UserRegistrationPage,
-    EventPage,
   },
   data: () => ({
     //
