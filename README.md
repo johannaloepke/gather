@@ -21,6 +21,7 @@ Gather. For better get togethers!
 - [ ] Email notifications (allergy updates, date/time change)
 - [ ] Edit functionality
 - [ ] Ingredients expansion on food items
+- [ ] Emoji NLP
 - [ ] Default vs. custom requests
 
 ## Project setup

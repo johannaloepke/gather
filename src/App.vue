@@ -6,11 +6,11 @@
       dark
     >
       <v-toolbar-title>
-        <span class="headline font-weight-bold">GATHER</span>
+        <span class="gather-font font-weight-bold">G</span>
         <span
           v-show="$vuetify.breakpoint.smAndUp"
-          class="font-weight-light title ml-5"
-          v-text="' For better get togethers'"
+          class="font-weight-light ml-5"
+          v-text="' better get togethers'"
         />
       </v-toolbar-title>
       <v-spacer />
@@ -30,17 +30,20 @@
 </template>
 
 <script>
-import LandingPage from './views/LandingPage.vue';
-import UserRegistrationPage from './views/UserRegistrationPage.vue';
 
 export default {
   name: 'App',
   components: {
-    LandingPage,
   },
   data: () => ({
     //
   }),
 };
 </script>
+<style scoped>
+.gather-font {
+  font-family: 'Amatic SC', cursive;
+  font-size: 1em
+}
+</style>
 
