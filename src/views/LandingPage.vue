@@ -85,8 +85,12 @@ export default {
   created() {
   },
   methods: {
+    // when the user clicks the Next button
     submit() {
-    }
+      this.loading = true;
+      // TODO: send data here & make sure it saves!
+      this.$router.push("/register");
+      }
   },
   beforeDestroy () {
     // Teardown leaky properties https://alligator.io/vuejs/component-lifecycle/

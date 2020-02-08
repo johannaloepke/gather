@@ -15,7 +15,7 @@
       </v-toolbar-title>
       <v-spacer />
       <v-btn
-        href="https://github.com/johannaloepke/instant-aux/"
+        href="https://github.com/johannaloepke/gather/"
         target="_blank"
       >
         <span class="mr-2">Source Code</span>
@@ -31,6 +31,7 @@
 
 <script>
 import LandingPage from './views/LandingPage.vue';
+import UserRegistrationPage from './views/UserRegistrationPage.vue';
 
 export default {
   name: 'App',
