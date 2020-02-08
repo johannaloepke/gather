@@ -1,11 +1,37 @@
 <template>
   <v-container>
     <v-layout text-center wrap>
-      <sidebar :userName="currentUser.userName" :pronouns="currentUser.pronouns" />
+      <sidebar :userName="currentUser.userName" :pronouns="currentUser.pronouns" class="ml-5" />
       <v-flex xs12>
         <h1 class="display-1 font-weight-bold mt-3">{{ name }}</h1>
         <h2 class="font-weight-bold">{{ date }}, {{ time }}</h2>
         <h2 class="font-weight-bold">{{ location }}</h2>
+      </v-flex>
+
+      <v-flex xs6>
+        <v-card class="mt-8">
+          <v-list two-line>
+            Requested Items
+            <v-list-item
+              v-for="request in requests"
+              :key="request.name"
+              @click
+              @mouseenter="hover=true"
+              @mouseleave="hover=false"
+            >
+              <v-list-item-avatar>
+                <v-img :src="emojify(request.name)"></v-img>
+              </v-list-item-avatar>
+
+              <v-list-item-content>
+                <v-list-item-title v-text="request.name"></v-list-item-title>
+                <v-list-item-subtitle v-text="'Serves '+request.serves+' people'"></v-list-item-subtitle>
+              </v-list-item-content>
+
+              <v-btn rounded v-show="hover">Sign up</v-btn>
+            </v-list-item>
+          </v-list>
+        </v-card>
       </v-flex>
 
       <h2 class="font-weight-bold">{{ requests }}</h2>
@@ -17,6 +43,7 @@
 
 <script>
 import { db } from "../db.js";
+import { foodToEmoji } from "../assets/emojis.js";
 import Sidebar from "../components/Sidebar.vue";
 
 const events = db.collection("events");
@@ -30,7 +57,8 @@ export default {
   data: () => ({
     loading: false,
     eventDetails: {},
-    currentUser: { userName: "Johanna", pronouns: "she/her/hers" }
+    currentUser: { userName: "Johanna", pronouns: "she/her/hers" },
+    hover: false
   }),
   computed: {
     name() {
@@ -54,10 +82,10 @@ export default {
       return this.eventDetails.location;
     },
     expectedGuests() {
-        return this.eventDetails.expectedGuests
+      return this.eventDetails.expectedGuests;
     },
     actualGuests() {
-        return this.eventDetails.actualGuests
+      return this.eventDetails.actualGuests;
     },
     requests() {
       return this.eventDetails.Requests;
@@ -89,7 +117,19 @@ export default {
     }
   },
   methods: {
-    submit() {}
+    emojify(text) {
+      for (const food of foodToEmoji) {
+        // 0 is keyword, 1 is emoji
+        if (text.includes(food[0])) {
+          return (
+            "https://xn--i-7iq.ws/emoji-image/" +
+            food[1] +
+            ".png?format=emojione&ar=2x1"
+          );
+        }
+      }
+      return "https://xn--i-7iq.ws/emoji-image/🍽.png?format=emojione&ar=2x1"; // No valid food emoji was found
+    }
   },
   beforeDestroy() {
     // Teardown leaky properties https://alligator.io/vuejs/component-lifecycle/
