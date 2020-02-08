@@ -1,10 +1,10 @@
 # gather
 
-You've been invited to a potluck. Sounds fun! But wait... what to bring?? Are there dietary restriction / allergies to be aware of? How much food should you make? Is somebody else also bringing a kale salad? 
+You've been invited to a potluck. Sounds fun! But wait... what to bring?? Are there dietary restrictions / allergies to be aware of? How much food should you make? Is somebody else also bringing a kale salad? 
 
 Gather helps ease these anxieties by providing a simple, no login required, interface that allows hosts to request items at their event and guests to share what they're bringing. 
 
-For better get togethers!
+Gather. For better get togethers!
 
 # Checklist
 
@@ -19,6 +19,7 @@ For better get togethers!
 - [ ] Viable links
 - [ ] Invite page
 - [ ] Email notifications (allergy updates, date/time change)
+- [ ] Edit functionality
 - [ ] Ingredients expansion on food items
 - [ ] Default vs. custom requests
 

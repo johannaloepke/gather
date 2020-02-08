@@ -5,14 +5,58 @@
       wrap
     >
       <v-flex xs12>
-        <h1 class="display-2 font-weight-bold mt-3 pa-1 pt-5">
-          Where the party at? 🎉
+        <h1 class="display-1 font-weight-bold mt-3 pa-5">
+          Let's get started 🎉
         </h1>
+
+        <v-layout justify-center>
+          <v-flex lg4 md6 xs8>
+            <!-- Event Name -->
+            <v-text-field
+              label="Event name"
+            ></v-text-field>
+
+            <!-- Date Picker -->
+            <v-dialog
+              ref="dialog"
+              v-model="dateDialog"
+              :return-value.sync="date"
+              persistent
+              width="290px"
+            >
+              <template v-slot:activator="{ on }">
+                <v-text-field
+                  v-model="date"
+                  label="Date of event"
+                  prepend-icon="event"
+                  readonly
+                  v-on="on"
+                ></v-text-field>
+              </template>
+              <v-date-picker v-model="date" scrollable>
+                <v-spacer></v-spacer>
+                <v-btn text color="primary" @click="dateDialog = false">Cancel</v-btn>
+                <v-btn text color="primary" @click="$refs.dialog.save(date)">OK</v-btn>
+              </v-date-picker>
+            </v-dialog>
+
+            <!-- Time -->
+            <v-text-field
+              class="pt-7"
+              label="Time (optional)"
+            ></v-text-field>
+
+            <!-- Address -->
+            <v-text-field
+              class="pt-7"
+              label="Address (optional)"
+            ></v-text-field>
+          </v-flex>
+        </v-layout>
       </v-flex>
       
       <v-layout justify-center>
-        <v-flex xs10 md4>
-          <v-spacer></v-spacer>
+        <v-flex xs4 md2 class="pt-10">
           <v-btn
             :loading="loading"
             x-large
@@ -34,7 +78,9 @@ export default {
   components: {
   },
   data: () => ({
-    loading: false
+    loading: false,
+    dateDialog: false,
+    date: new Date().toISOString().substr(0, 10),
   }),
   created() {
   },
@@ -53,6 +99,6 @@ export default {
   font-size: 1.5em;
 }
 h1 {
-  font-family: 'Amatic SC';
+  font-family: 'Amatic SC', cursive;
 }
 </style>
