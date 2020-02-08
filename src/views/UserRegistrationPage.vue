@@ -13,7 +13,11 @@
           <v-flex lg4 md6 xs8>
             <!-- User Name -->
             <v-text-field
+              v-model="userName"
+              :rules="userNameRules"
+              :counter="20"
               label="Your name"
+              required
             ></v-text-field>
             
             <!-- Pronouns -->
@@ -88,7 +92,12 @@ export default {
   },
   data: () => ({
     loading: false, 
-    isEating: false
+    isEating: false,
+    userName: '',
+      userNameRules: [
+        v => !!v || 'Your name is required',
+        v => (v && v.length <= 20) || 'Your name must be less than 20 characters',
+      ],
   }),
   created() {
   },

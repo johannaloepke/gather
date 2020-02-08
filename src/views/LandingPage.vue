@@ -1,5 +1,10 @@
 <template>
   <v-container>
+  <v-form
+    ref="form"
+    v-model="valid"
+    :lazy-validation="lazy"
+  >
     <v-layout
       text-center
       wrap
@@ -11,9 +16,22 @@
 
         <v-layout justify-center>
           <v-flex lg4 md6 xs8>
+            
             <!-- Event Name -->
             <v-text-field
+              v-model="eventName"
+              :rules="eventNameRules"
+              :counter="20"
               label="Event name"
+              required
+            ></v-text-field>
+
+            <!-- Email -->
+            <v-text-field
+              v-model="email"
+              :rules="emailRules"
+              label="Your email"
+              required
             ></v-text-field>
 
             <!-- Date Picker -->
@@ -43,13 +61,13 @@
             <!-- Time -->
             <v-text-field
               class="pt-7"
-              label="Time (optional)"
+              label="Time frame (optional)"
             ></v-text-field>
 
-            <!-- Address -->
+            <!-- Location -->
             <v-text-field
               class="pt-7"
-              label="Address (optional)"
+              label="Location (optional)"
             ></v-text-field>
           </v-flex>
         </v-layout>
@@ -69,6 +87,7 @@
         </v-flex>
       </v-layout>
     </v-layout>
+    </v-form>
   </v-container>
 </template>
 
@@ -79,6 +98,16 @@ export default {
   },
   data: () => ({
     loading: false,
+    eventName: '',
+      eventNameRules: [
+        v => !!v || 'Event name is required',
+        v => (v && v.length <= 20) || 'Event name must be less than 20 characters',
+      ],
+    email: '',
+      emailRules: [
+        v => !!v || 'E-mail is required',
+        v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+      ],
     dateDialog: false,
     date: new Date().toISOString().substr(0, 10),
   }),
