@@ -73,10 +73,12 @@
         </v-layout>
       </v-flex>
       
+      <!-- Next Button -->
       <v-layout justify-center>
         <v-flex xs4 md2 class="pt-10">
           <v-btn
             :loading="loading"
+            :disabled="!valid"
             x-large
             block
             color="primary"
