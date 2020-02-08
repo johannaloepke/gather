@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import LandingPage from './views/LandingPage.vue'
 import UserRegistrationPage from './views/UserRegistrationPage.vue'
+import AddRequestsPage from './views/AddRequestsPage.vue'
 import NotFound from './views/NotFound.vue'
 
 Vue.use(VueRouter)
@@ -19,6 +20,11 @@ export default new VueRouter({
       path: '/register', // this is the user registration page
       name: 'userReg',
       component: UserRegistrationPage // this is the view rendered when visiting this path
+    },
+    {
+      path: '/add-requests', // this is the user registration page
+      name: 'addRequests',
+      component: AddRequestsPage // this is the view rendered when visiting this path
     },
     // {
     //   path: '/otherpage',
