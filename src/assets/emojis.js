@@ -3,7 +3,10 @@ let foodToEmoji = new Map([
     ['wine', '🍷'],
     ['grape', '🍇'],
     ['watermelon', '🍉'],
-    ['pasta', '🍝']
+    ['pasta', '🍝'],
+    ['cake', '🎂'],
+    ['shortcake', '🍰'],
+    ['dessert', '🍰']
 ]) // TODO: finish other emojis
 
 export { foodToEmoji }

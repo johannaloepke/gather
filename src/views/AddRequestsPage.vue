@@ -90,7 +90,10 @@ export default {
     mounted() {
       this.addItem();
     },
-    submit() {}
+    submit() {
+      // TODO: send data here & make sure it saves!
+      this.$router.push("/events/po1d1suiYkudPEQd5hj4");
+    }
   }),
   beforeDestroy() {
     // Teardown leaky properties https://alligator.io/vuejs/component-lifecycle/
