@@ -108,13 +108,12 @@ export default {
       this.addItem();
     },
     submit() {
-      this.loading = true;
       // TODO: send data here & make sure it saves!
-      this.$router.push("/event:id");
-    },
-    beforeDestroy() {
-      // Teardown leaky properties https://alligator.io/vuejs/component-lifecycle/
+      this.$router.push("/events/po1d1suiYkudPEQd5hj4");
     }
+  },
+  beforeDestroy() {
+    // Teardown leaky properties https://alligator.io/vuejs/component-lifecycle/
   }
 };
 </script>
