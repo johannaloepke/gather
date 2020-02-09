@@ -2,8 +2,7 @@
   <v-container>
   <v-form
     ref="form"
-    v-model="valid"
-    :lazy-validation="lazy"
+    v-model="isValid"
   >
     <v-layout
       text-center
@@ -78,7 +77,7 @@
         <v-flex xs4 md2 class="pt-10">
           <v-btn
             :loading="loading"
-            :disabled="!valid"
+            :disabled="!isValid"
             x-large
             block
             color="primary"
@@ -100,6 +99,7 @@ export default {
   },
   data: () => ({
     loading: false,
+    isValid: false,
     eventName: '',
       eventNameRules: [
         v => !!v || 'Event name is required',
