@@ -9,7 +9,7 @@
       wrap
     >
       <v-flex xs12>
-        <h1 class="display-1 font-weight-bold mt-3 pa-5">
+        <h1 class="display-1 mt-3 pa-5">
           Let's get started 🎉
         </h1>
 

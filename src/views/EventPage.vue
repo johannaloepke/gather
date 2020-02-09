@@ -3,7 +3,7 @@
     <v-layout text-center wrap>
       <!-- <sidebar :userName="currentUser.userName" :pronouns="currentUser.pronouns" class="ml-5" /> -->
       <v-flex xs12 class="ma-5">
-        <h1 class="display-1 font-weight-bold mt-3">{{ name }}</h1>
+        <h1 class="display-1 mt-3">{{ name }}</h1>
         <h2 class="font-weight-bold">{{ date }}, {{ time }}</h2>
         <h2 class="font-weight-bold">{{ location }}</h2>
       </v-flex>

@@ -3,7 +3,7 @@
     <v-form ref="form" v-model="formValid">
       <v-layout text-center wrap>
         <v-flex xs12>
-          <h1 class="display-1 font-weight-bold mt-3 pa-5">Well hello, party planner! 💫</h1>
+          <h1 class="display-1 mt-3 pa-5">Well hello, party planner! 💫</h1>
 
           <!-- People attending -->
           <p

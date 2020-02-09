@@ -6,12 +6,13 @@
       dark
     >
       <v-toolbar-title>
-        <span class="gather-font font-weight-bold">G</span>
+        <span class="font-weight-bold display-1">gather</span>
+       
         <span
           v-show="$vuetify.breakpoint.smAndUp"
-          class="font-weight-light ml-5"
-          v-text="' better get togethers'"
-        />
+          class="font-weight-light ml-4"
+          v-text="'for better get-togethers'"
+        />        
       </v-toolbar-title>
       <v-spacer />
       <v-btn

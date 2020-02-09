@@ -3,8 +3,8 @@
     <v-form ref="form" v-model="formValid">
       <v-layout text-center wrap>
         <v-flex xs12>
-          <h1 class="display-1 font-weight-bold mt-3 pa-4">First, the small talk...</h1>
-          <p class="nmt-7">Tell me a bit about yourself! 👋🏽</p>
+          <h1 class="display-1 mt-3 pa-4">First, the small talk...</h1>
+          <p class="nmt-7">Tell me a bit about yourself! 👋🏾</p>
 
           <v-layout justify-center>
             <v-flex lg4 md6 xs8>

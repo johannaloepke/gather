@@ -4,9 +4,9 @@
       <v-layout text-center wrap>
         <v-flex xs12>
           <!-- Header -->
-          <h1 class="display-1 font-weight-bold mt-3 pa-5">Sounds fun, I'm in.</h1>
+          <h1 class="display-1 mt-3 pa-5">✋🏾 Dibs!</h1>
 
-          <p color="gray" class="text-center body-1 mt-5">What would you like to bring?</p>
+          <p color="gray" class="text-center font-weight-bold body-1 mt-5">I'm bringing:</p>
 
           <!-- Ask for item name -->
           <v-layout justify-center>
@@ -32,29 +32,36 @@
           </v-layout>
 
           <!-- Ask for ingredients list -->
-          <p color="gray" class="text-center body-1 mt-6">What ingredients will it contain?</p>
-          <p
-            color="gray"
-            class="text-center body-2 font-italic nmt-4"
-          >(press enter after each ingredient)</p>
-          <v-combobox
-            class="mb-5"
-            v-model="ingredients"
-            chips
-            append-icon
-            clearable
-            multiple
-            solo
-            flat
-            outlined
-            dense
-            background-color="transparent"
-            height="80"
-          >
-            <template v-slot:selection="{ attrs, item, select, selected }">
-              <v-chip color="gray" v-bind="attrs" :input-value="selected" close clearable>{{ item }}</v-chip>
-            </template>
-          </v-combobox>
+          <p color="gray" class="text-center font-weight-bold body-1 mt-6">Does it contain any allergens?</p>
+                
+            <p class="text-left">Type key allergens + press enter:</p>
+
+              <v-combobox
+                class="mb-5"
+                v-model="allergyModel"
+                chips
+                append-icon
+                clearable
+                multiple
+                solo
+                flat
+                outlined
+                dense
+                background-color="transparent"
+                height="80"
+              >
+                <template v-slot:selection="{ attrs, item, select, selected }">
+                  <v-chip
+                    color="gray"
+                    v-bind="attrs"
+                    :input-value="selected"
+                    clearable
+                    close
+                  >
+                    {{ item }}
+                  </v-chip>
+                </template>
+              </v-combobox>
 
           <!-- Prompt for dietary restrictions tags -->
 
@@ -88,7 +95,8 @@ export default {
     estimate: "",
     itemName: "",
     servings: "",
-    ingredients: [],
+    dietaryRestrictionsModel: [],
+    allergyModel: [],
     people: "",
     peopleRules: [
       v => !!v || "Expected number of people is required",
