@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import LandingPage from './views/LandingPage.vue'
 import UserRegistrationPage from './views/UserRegistrationPage.vue'
 import AddRequestsPage from './views/AddRequestsPage.vue'
+import AddItemPage from './views/AddItemPage.vue'
 import EventPage from './views/EventPage.vue'
 import NotFound from './views/NotFound.vue'
 
@@ -32,6 +33,11 @@ export default new VueRouter({
       name: 'event',
       component: EventPage, // this is the view rendered when visiting this path
       props: true
+    },
+    {
+      path: '/add-item', // this is page where a person signs up for an item
+      name: 'addItem',
+      component: AddItemPage // this is the view rendered when visiting this path
     },
     // {
     //   path: '/otherpage',

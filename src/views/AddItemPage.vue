@@ -3,59 +3,62 @@
     <v-form ref="form" v-model="formValid">
       <v-layout text-center wrap>
         <v-flex xs12>
-          <h1 class="display-1 font-weight-bold mt-3 pa-5">Well hello, party planner! 💫</h1>
+          <!-- Header -->
+          <h1 class="display-1 font-weight-bold mt-3 pa-5">Sounds fun, I'm in.</h1>
 
-          <!-- People attending -->
-          <p
-            color="gray"
-            class="text-center mt-5"
-          >How many people are you expecting at this shindig?</p>
-          <v-layout justify-center text-center>
-            <v-flex lg1 md2 xs2 align-center justify-center>
-              <v-text-field
-                align="center"
-                class="centered-input"
-                v-model.number="people"
-                :rules="peopleRules"
-                label="Estimate"
-                required
-              ></v-text-field>
-            </v-flex>
-          </v-layout>
+          <p color="gray" class="text-center body-1 mt-5">What would you like to bring?</p>
 
-          <!-- Item Name, Servings -->
-
-          <p color="gray" class="text-center mt-5">What would you like them to bring?</p>
-
+          <!-- Ask for item name -->
           <v-layout justify-center>
             <v-flex lg6 md6 xs8>
               <v-row>
-                <v-btn
-                  class="mt-5 mr-3"
-                  dense
-                  :loading="loading"
-                  :disabled="!servings"
-                  @click="addItem"
-                >
-                  <v-icon>add_circle_outline</v-icon>
-                </v-btn>
-
                 <template :selection="{ attrs, item, select, selected }">
                   <v-text-field v-model.lazy="itemName" :counter="30" label="Item name" clearable></v-text-field>
+
+                  <!-- Ask for servings -->
                   <v-flex lg4 md3 xs3>
-                    <v-text-field 
-                    v-bind="attrs"
-                    :input-value="selected"
-                    class="pl-5" 
-                    v-model.number="servings" 
-                    label="Servings" 
-                    clearable
+                    <v-text-field
+                      v-bind="attrs"
+                      :input-value="selected"
+                      class="pl-5"
+                      v-model.number="servings"
+                      label="Servings"
+                      clearable
                     ></v-text-field>
                   </v-flex>
                 </template>
               </v-row>
             </v-flex>
           </v-layout>
+
+          <!-- Ask for ingredients list -->
+          <p color="gray" class="text-center body-1 mt-6">What ingredients will it contain?</p>
+          <p
+            color="gray"
+            class="text-center body-2 font-italic nmt-4"
+          >(press enter after each ingredient)</p>
+          <v-combobox
+            class="mb-5"
+            v-model="ingredients"
+            chips
+            append-icon
+            clearable
+            multiple
+            solo
+            flat
+            outlined
+            dense
+            background-color="transparent"
+            height="80"
+          >
+            <template v-slot:selection="{ attrs, item, select, selected }">
+              <v-chip color="gray" v-bind="attrs" :input-value="selected" close clearable>{{ item }}</v-chip>
+            </template>
+          </v-combobox>
+
+          <!-- Prompt for dietary restrictions tags -->
+
+          <!-- Prompt for allergen tags -->
 
           <!-- Next Button -->
           <v-layout justify-center>
@@ -85,22 +88,18 @@ export default {
     estimate: "",
     itemName: "",
     servings: "",
+    ingredients: [],
     people: "",
     peopleRules: [
       v => !!v || "Expected number of people is required",
       v => Number.isInteger(v) || "Number of people must be a number"
     ],
-    itemRequests: [],
-
-    items: [{
-        name: null,
-        servings: null
-    }],
+    itemRequests: []
   }),
   created() {},
   methods: {
     addItem() {
-      this.itemRequests.push({
+      this.items.push({
         value: ""
       });
     },
@@ -127,3 +126,5 @@ h1 {
   font-family: "Amatic SC";
 }
 </style>
+
+ 
