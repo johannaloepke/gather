@@ -1,21 +1,21 @@
 <template>
   <v-container>
     <v-layout text-center wrap>
-      <sidebar :userName="currentUser.userName" :pronouns="currentUser.pronouns" class="ml-5" />
+      <!-- <sidebar :userName="currentUser.userName" :pronouns="currentUser.pronouns" class="ml-5" /> -->
       <v-flex xs12>
         <h1 class="display-1 font-weight-bold mt-3">{{ name }}</h1>
         <h2 class="font-weight-bold">{{ date }}, {{ time }}</h2>
         <h2 class="font-weight-bold">{{ location }}</h2>
       </v-flex>
 
-      <v-flex xs6>
+      <v-flex xs7>
         <v-card class="mt-8">
           <v-list two-line>
-            Requested Items
+            <h3>Requested Items</h3>
             <v-list-item
               v-for="request in requests"
               :key="request.name"
-              @click
+              @click=""
               @mouseenter="hover=true"
               @mouseleave="hover=false"
             >
@@ -34,6 +34,29 @@
         </v-card>
       </v-flex>
 
+      <v-flex xs5>
+        <v-card class="ml-4 mt-8">
+          <v-list two-line>
+            <h3>Already Gathered</h3>
+            <v-list-item
+              v-for="request in fulfilledRequests"
+              :key="request.name"
+              @click="print(getUserById(request.Item.User))"
+            >
+              <v-list-item-avatar>
+                <v-img :src="emojify(request.Item.name)"></v-img>
+              </v-list-item-avatar>
+
+              <v-list-item-content>
+                <v-list-item-title v-text="itemTitle(request)"></v-list-item-title>
+                <v-list-item-subtitle v-text="'Serves '+request.Item.serves+' people'"></v-list-item-subtitle>
+              </v-list-item-content>
+
+            </v-list-item>
+          </v-list>
+        </v-card>
+      </v-flex>
+
       <h2 class="font-weight-bold">{{ requests }}</h2>
 
       <h2 class="font-weight-bold">{{ items }}</h2>
@@ -47,6 +70,7 @@ import { foodToEmoji } from "../assets/emojis.js";
 import Sidebar from "../components/Sidebar.vue";
 
 const events = db.collection("events");
+const usersDB = db.collection("users");
 export default {
   props: {
     id: String
@@ -129,6 +153,19 @@ export default {
         }
       }
       return "https://xn--i-7iq.ws/emoji-image/🍽.png?format=emojione&ar=2x1"; // No valid food emoji was found
+    },
+    print(stuff) {
+        console.log(stuff)
+    },
+    async getUserById(id) {
+        await usersDB.doc(id).get().then(function(stuff) {
+            console.log(stuff.data())
+            return stuff.data()
+        });
+    },
+    async itemTitle(request) {
+        const user = await this.getUserById(request.Item.User.split('/')[1])
+        return request.Item.name+' - '+user.name+' ('+user.pronouns+')'
     }
   },
   beforeDestroy() {

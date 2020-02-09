@@ -22,6 +22,7 @@ Gather. For better get togethers!
 - [ ] Edit functionality
 - [ ] Ingredients expansion on food items
 - [ ] Emoji NLP
+- [ ] Multiple items per request
 - [ ] Default vs. custom requests
 
 ## Project setup
