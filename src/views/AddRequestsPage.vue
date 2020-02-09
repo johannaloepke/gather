@@ -3,10 +3,13 @@
     <v-form ref="form" v-model="formValid">
       <v-layout text-center wrap>
         <v-flex xs12>
-          <h1 class="display-1 font-weight-bold mt-3 pa-5">Way to go, party planner!</h1>
+          <h1 class="display-1 font-weight-bold mt-3 pa-5">Well hello, party planner! 💫</h1>
 
           <!-- People attending -->
-          <p color="gray" class="text-center mt-5">How many people are you expecting at this shindig?</p>
+          <p
+            color="gray"
+            class="text-center mt-5"
+          >How many people are you expecting at this shindig?</p>
           <v-layout justify-center text-center>
             <v-flex lg1 md2 xs2 align-center justify-center>
               <v-text-field
@@ -25,23 +28,31 @@
           <p color="gray" class="text-center mt-5">What would you like them to bring?</p>
 
           <v-layout justify-center>
-            <v-flex lg4 md6 xs8>
+            <v-flex lg6 md6 xs8>
               <v-row>
-                <v-text-field
-                  v-model.lazy="itemName"
-                  :counter="30"
-                  label="Item name"
-                  clearable
-                ></v-text-field>
-                <v-flex lg3 md3 xs3>
-                  <v-text-field
-                    class="pl-5"
-                    v-model.number="servings"
-                    label="Servings"
+                <v-btn
+                  class="mt-5 mr-3"
+                  dense
+                  :loading="loading"
+                  :disabled="!servings"
+                  @click="addItem"
+                >
+                  <v-icon>add_circle_outline</v-icon>
+                </v-btn>
+
+                <template :selection="{ attrs, item, select, selected }">
+                  <v-text-field v-model.lazy="itemName" :counter="30" label="Item name" clearable></v-text-field>
+                  <v-flex lg4 md3 xs3>
+                    <v-text-field 
+                    v-bind="attrs"
+                    :input-value="selected"
+                    class="pl-5" 
+                    v-model.number="servings" 
+                    label="Servings" 
                     clearable
-                  ></v-text-field>
-                  <!-- <v-icon v-show="servings" class="pl-5">add_circle_outline</v-icon> -->
-                </v-flex>
+                    ></v-text-field>
+                  </v-flex>
+                </template>
               </v-row>
             </v-flex>
           </v-layout>
@@ -77,15 +88,21 @@ export default {
     people: "",
     peopleRules: [
       v => !!v || "Expected number of people is required",
-    //   v => Number.isInteger(v) || "Number of people must be a number"
+      v => Number.isInteger(v) || "Number of people must be a number"
     ],
     itemRequests: [],
-    methods: {
-      addItem() {
-        this.items.push({
-          value: ""
-        });
-      }
+
+    items: [{
+        name: null,
+        servings: null
+    }],
+  }),
+  created() {},
+  methods: {
+    addItem() {
+      this.itemRequests.push({
+        value: ""
+      });
     },
     mounted() {
       this.addItem();
@@ -94,7 +111,7 @@ export default {
       // TODO: send data here & make sure it saves!
       this.$router.push("/events/po1d1suiYkudPEQd5hj4");
     }
-  }),
+  },
   beforeDestroy() {
     // Teardown leaky properties https://alligator.io/vuejs/component-lifecycle/
   }
