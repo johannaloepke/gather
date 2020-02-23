@@ -31,6 +31,8 @@
             </v-flex>
           </v-layout>
 
+          <v-layout justify-center>
+          <v-flex lg10 xs8>
           <!-- Ask for ingredients list -->
           <p color="gray" class="text-center font-weight-bold body-1 mt-6">Does it contain any allergens?</p>
                 
@@ -62,6 +64,8 @@
                   </v-chip>
                 </template>
               </v-combobox>
+          </v-flex>
+          </v-layout>
 
           <!-- Prompt for dietary restrictions tags -->
 
@@ -117,7 +121,7 @@ export default {
     submit() {
       this.loading = true;
       // TODO: send data here & make sure it saves!
-      this.$router.push("/event:id");
+      this.$router.push("/events/po1d1suiYkudPEQd5hj4");
     },
     beforeDestroy() {
       // Teardown leaky properties https://alligator.io/vuejs/component-lifecycle/

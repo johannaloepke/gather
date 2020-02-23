@@ -29,7 +29,7 @@ export default new VueRouter({
       component: AddRequestsPage // this is the view rendered when visiting this path
     },
     {
-      path: '/event/:id', // this is an event page
+      path: '/events/:id', // this is an event page
       name: 'event',
       component: EventPage, // this is the view rendered when visiting this path
       props: true

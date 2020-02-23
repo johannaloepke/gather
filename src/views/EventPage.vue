@@ -7,7 +7,6 @@
         <v-chip large>{{ actualGuests+' / '+expectedGuests }}</v-chip>
         <p>guests responded</p>
       </v-flex>
-
       <v-flex xs10 class="ml-n5 mb-5 mt-5">
         <h1 class="display-1 font-weight-bold mt-3">{{ name }}</h1>
         <h2 class="font-weight-bold">{{ date }}, {{ time }}</h2>
@@ -19,6 +18,7 @@
           <v-list two-line>
             <h3>Requested Items</h3>
             <v-list-item v-for="request in unfulfilledRequests" :key="request.name">
+                <!-- TODO bug where more items flash -->
               <!-- @mouseenter="hover=true"
               @mouseleave="hover=false">-->
               <v-list-item-avatar>
@@ -30,7 +30,7 @@
                 <v-list-item-subtitle v-text="'Serves '+request.serves+' people'"></v-list-item-subtitle>
               </v-list-item-content>
 
-              <v-btn rounded color="success">Sign up</v-btn>
+              <v-btn rounded color="success" @click="signUp">Sign up</v-btn>
             </v-list-item>
           </v-list>
         </v-card>
@@ -233,6 +233,9 @@ export default {
         }
       }
       return "https://xn--i-7iq.ws/emoji-image/🍽.png?format=emojione&ar=2x1"; // No valid food emoji was found
+    },
+    signUp() {
+        this.$router.push("/add-item")
     }
     // async openModal(item) {
     //     const user = await this.getUserById(request.Item.User.split('/')[1])

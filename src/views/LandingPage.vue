@@ -20,18 +20,18 @@
             <v-text-field
               v-model="eventName"
               :rules="eventNameRules"
-              :counter="20"
+              :counter="40"
               label="Event name"
               required
             ></v-text-field>
 
-            <!-- Email -->
+            <!-- Email
             <v-text-field
               v-model="email"
               :rules="emailRules"
               label="Your email"
               required
-            ></v-text-field>
+            ></v-text-field> -->
 
             <!-- Date Picker -->
             <v-dialog
@@ -103,7 +103,7 @@ export default {
     eventName: '',
       eventNameRules: [
         v => !!v || 'Event name is required',
-        v => (v && v.length <= 20) || 'Event name must be less than 20 characters',
+        v => (v && v.length <= 40) || 'Event name must be less than 40 characters',
       ],
     email: '',
       emailRules: [
