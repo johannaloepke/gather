@@ -25,14 +25,6 @@
               required
             ></v-text-field>
 
-            <!-- Email
-            <v-text-field
-              v-model="email"
-              :rules="emailRules"
-              label="Your email"
-              required
-            ></v-text-field> -->
-
             <!-- Date Picker -->
             <v-dialog
               ref="dialog"
@@ -59,12 +51,14 @@
 
             <!-- Time -->
             <v-text-field
+              v-model="time"
               class="pt-7"
               label="Time frame (optional)"
             ></v-text-field>
 
             <!-- Location -->
             <v-text-field
+              v-model="location"
               class="pt-7"
               label="Location (optional)"
             ></v-text-field>
@@ -93,7 +87,9 @@
 </template>
 
 <script>
+import { db } from "../db.js";
 
+const eventsDb = db.collection("events");
 export default {
   components: {
   },
@@ -111,16 +107,25 @@ export default {
         v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
       ],
     dateDialog: false,
-    date: new Date().toISOString().substr(0, 10),
+    date: null,
+    time: null,
+    location: null
   }),
   created() {
   },
   methods: {
     // when the user clicks the Next button
-    submit() {
+    async submit() {
       this.loading = true;
       // TODO: send data here & make sure it saves!
-      this.$router.push("/register");
+      let eventCreate = await eventsDb.add({
+        name: this.eventName,
+        date: this.date,
+        time: this.time,
+        location: this.location
+      })
+      let newEventId = eventCreate._key.path.segments[1]
+      this.$router.push("/register?eventId=" + newEventId);
       }
   },
   beforeDestroy () {

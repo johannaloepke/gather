@@ -31,71 +31,20 @@
               ></v-switch>
 
               <!-- Dietary Restrictions (shown if eating is toggled) -->
-              <p
-                color="gray"
-                v-show="form.isEating"
-                class="text-left mt-5"
-              >My dietary restrictions include:</p>
-
-              <v-combobox
-                class="mb-5"
-                v-show="form.isEating"
-                v-model="form.dietaryRestrictionsModel"
-                chips
-                append-icon
-                clearable
-                multiple
-                solo
-                flat
-                outlined
-                dense
-                background-color="transparent"
-                height="80"
-              >
-                <template v-slot:selection="{ attrs, item, select, selected }">
-                  <v-chip
-                    color="gray"
-                    v-bind="attrs"
-                    :input-value="selected"
-                    close
-                    clearable
-                  >
-                    {{ item }}
-                  </v-chip>
-                </template>
-              </v-combobox>
-                
+              <chip-container
+                title="My dietary restrictions include:"
+                :show="form.isEating"
+                :value="form.dietaryRestrictions"
+                @input="(newDietaryRestrictions) => {form.dietaryRestrictions = newDietaryRestrictions}"
+              />   
 
               <!-- Allergies/Intolerances (shown if eating is toggled) -->
-              <p v-show="form.isEating" class="text-left">My allergies or intolerances include:</p>
-
-              <v-combobox
-                class="mb-5"
-                v-show="form.isEating"
-                v-model="form.allergyModel"
-                chips
-                append-icon
-                clearable
-                multiple
-                solo
-                flat
-                outlined
-                dense
-                background-color="transparent"
-                height="80"
-              >
-                <template v-slot:selection="{ attrs, item, select, selected }">
-                  <v-chip
-                    color="gray"
-                    v-bind="attrs"
-                    :input-value="selected"
-                    close
-                    clearable
-                  >
-                    {{ item }}
-                  </v-chip>
-                </template>
-              </v-combobox>
+              <chip-container
+                title="My allergies or intolerances include:"
+                :show="form.isEating"
+                :value="form.allergies"
+                @input="(newAllergies) => {form.allergies = newAllergies}"
+              />
 
               <!-- Planning on Drinking? (toggle) -->
               <v-switch
@@ -125,8 +74,14 @@
 </template>
 
 <script>
+import { db } from "../db.js";
+import * as firebase from 'firebase/app';
+import ChipContainer from '../components/ChipContainer.vue'
+
+const eventsDb = db.collection("events");
+const usersDb = db.collection("users");
 export default {
-  components: {},
+	components: { ChipContainer },
   data: () => ({
     loading: false,
     formValid: false,
@@ -136,8 +91,8 @@ export default {
       userName: "",
       email: "",
       pronouns: "",
-      allergyModel: [],
-      dietaryRestrictionsModel: [],
+      allergies: [],
+      dietaryRestrictions: [],
     },
     emailRules: [
       v => !!v || "E-mail is required",
@@ -148,21 +103,9 @@ export default {
       v => (v && v.length <= 30) || "Your name must be less than 30 characters"
     ],
   }),
-
-  watch: {
-    model(val, prev) {
-      if (val.length === prev.length) return;
-      this.model = val.map(v => {
-        if (typeof v === "string") {
-          v = {
-            text: v,
-            color: this.colors[this.nonce - 1]
-          };
-          this.items.push(v);
-          this.nonce++;
-        }
-        return v;
-      });
+  computed: {
+    eventId() {
+      return this.$route.query.eventId
     }
   },
 
@@ -175,10 +118,22 @@ export default {
       this.form.allergies.push(item);
     },
     
-    submit() {
+    async submit() {
       this.loading = true;
+      let userCreate = await usersDb.add({
+        name: this.form.userName,
+        email: this.form.email,
+        pronouns: this.form.pronouns,
+        isDrinkingAlcohol: this.form.isDrinking,
+        isEating: this.form.isEating,
+        allergies: this.form.allergies,
+        dietaryRestrictions: this.form.dietaryRestrictions
+      })
+      let newUserId = userCreate._key.path.segments[1]
+      console.log(db.doc(newUserId))
+      eventsDb.doc(this.eventId).update({ Users: firebase.firestore.FieldValue.arrayUnion(db.doc(newUserId).ref)})
       // TODO: send data here & make sure it saves!
-      this.$router.push("/add-request");
+      //this.$router.push("/add-request");
     }
   },
   beforeDestroy() {

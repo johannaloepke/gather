@@ -109,7 +109,7 @@ import { db } from "../db.js";
 import { foodToEmoji } from "../assets/emojis.js";
 import Sidebar from "../components/Sidebar.vue";
 
-const events = db.collection("events");
+const eventsDB = db.collection("events");
 const usersDB = db.collection("users");
 export default {
   props: {
@@ -211,7 +211,7 @@ export default {
   watch: {
     id: {
       handler(id) {
-        this.$bind("eventDetails", events.doc(id)).then(eventDetails => {
+        this.$bind("eventDetails", eventsDB.doc(id)).then(eventDetails => {
           // allows real-time updates from database
           this.eventDetails === eventDetails;
         });

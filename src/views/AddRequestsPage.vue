@@ -109,7 +109,7 @@ export default {
     },
     submit() {
       // TODO: send data here & make sure it saves!
-      this.$router.push("/events/po1d1suiYkudPEQd5hj4");
+      this.$router.push("/events/H0fah67TAZPsXxCMoIHx");
     }
   },
   beforeDestroy() {

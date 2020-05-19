@@ -20,7 +20,7 @@ export default new VueRouter({
     },
     {
       path: '/register', // this is the user registration page
-      name: 'userReg',
+      name: 'register',
       component: UserRegistrationPage // this is the view rendered when visiting this path
     },
     {
